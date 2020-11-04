@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NotFoundPage from "../pages/NotFoundPage";
-import HomePage from "../pages/HomePage";
+import HomePage from "../pages/HomePage/HomePage";
 import BusStopsPage from "../pages/BusStopsPage";
 
 export default function MainRoutes() {
