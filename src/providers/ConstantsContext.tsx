@@ -1,8 +1,10 @@
 import React from "react";
 
 const defaultContext = {
-  targetDonationForEach:
-    process.env.REACT_APP_TARGET_DONATION_AMOUNT_FOR_EACH || 700,
+  targetDonationForEach: parseInt(
+    process.env.REACT_APP_TARGET_DONATION_AMOUNT_FOR_EACH || "700",
+    10
+  ),
   targetDonationCurrency: process.env.REACT_APP_TARGET_DONATION_CURRENCY || "$",
 };
 

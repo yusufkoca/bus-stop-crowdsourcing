@@ -4,13 +4,8 @@ import { Container, Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import { useBusStops } from "../../providers/BusStopsContext";
 
-const UnitsPage: FunctionComponent = () => {
+const BusStopsPage: FunctionComponent = () => {
   const { busStops, getBusStops } = useBusStops();
-
-  useEffect(() => {
-    document.title = "Crowdsourcing App";
-    getBusStops();
-  }, []);
 
   useEffect(() => {
     document.title = "Bus Stops";
@@ -34,4 +29,4 @@ const UnitsPage: FunctionComponent = () => {
   );
 };
 
-export default UnitsPage;
+export default BusStopsPage;
