@@ -7,6 +7,7 @@ const HomePage = () => {
   useEffect(() => {
     document.title = "Crowdsourcing App";
   }, []);
+
   return (
     <Container maxWidth={"md"}>
       <Box
