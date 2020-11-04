@@ -24,7 +24,9 @@ const MapView = ({ busStops }: MapViewProps) => {
     // Important! Always set the container height explicitly
     <div style={{ height: "80vh", width: "100%" }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCG038AnPvusiqzosYZXkEsOIe3Lhw91Lw" }}
+        bootstrapURLKeys={{
+          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "",
+        }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >

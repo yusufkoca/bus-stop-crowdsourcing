@@ -3,21 +3,14 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import { Typography } from "@material-ui/core";
 import MapView from "./MapView";
-import { BusStop } from "../../types";
-import busStopService from "../../api/busStopService";
+import { useBusStops } from "../../providers/BusStopsContext";
 
 const HomePage = () => {
-  const [busStops, setBusStops] = React.useState<BusStop[]>([]);
+  const { busStops, getBusStops } = useBusStops();
 
   useEffect(() => {
     document.title = "Crowdsourcing App";
-    try {
-      const data = busStopService.getAll();
-      setBusStops(data);
-    } catch (error) {
-      console.log(error);
-      //TODO show error
-    }
+    getBusStops();
   }, []);
 
   return (

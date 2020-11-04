@@ -2,21 +2,19 @@ import React, { FunctionComponent, useEffect } from "react";
 import BusStopsTable from "./BusStopsTable";
 import { Container, Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
-import { BusStop } from "../../types";
-import busStopService from "../../api/busStopService";
+import { useBusStops } from "../../providers/BusStopsContext";
 
 const UnitsPage: FunctionComponent = () => {
-  const [busStops, setBusStops] = React.useState<BusStop[]>([]);
+  const { busStops, getBusStops } = useBusStops();
+
+  useEffect(() => {
+    document.title = "Crowdsourcing App";
+    getBusStops();
+  }, []);
 
   useEffect(() => {
     document.title = "Bus Stops";
-    try {
-      const data = busStopService.getAll();
-      setBusStops(data);
-    } catch (error) {
-      console.log(error);
-      //TODO show error
-    }
+    getBusStops();
   }, []);
 
   return (

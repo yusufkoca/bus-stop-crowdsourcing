@@ -1,16 +1,16 @@
 import React from "react";
 
-const ConstantsContext = React.createContext({
-  targetDonationForEach: 700,
-  targetDonationCurrency: "$",
-});
+const defaultContext = {
+  targetDonationForEach:
+    process.env.REACT_APP_TARGET_DONATION_AMOUNT_FOR_EACH || 700,
+  targetDonationCurrency: process.env.REACT_APP_TARGET_DONATION_CURRENCY || "$",
+};
+
+const ConstantsContext = React.createContext(defaultContext);
 ConstantsContext.displayName = "ConstantsContext";
 
 const ConstantsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [constants, setConstants] = React.useState({
-    targetDonationForEach: 700,
-    targetDonationCurrency: "$",
-  });
+  const [constants, setConstants] = React.useState(defaultContext);
 
   return (
     <ConstantsContext.Provider value={constants}>

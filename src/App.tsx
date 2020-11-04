@@ -1,10 +1,12 @@
 import React, { FunctionComponent } from "react";
 import Routes from "./routes";
+import { SnackbarProvider } from "notistack";
 import CustomThemeProvider from "./providers/CustomThemeProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Layout from "./components/Layout";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ConstantsProvider } from "./providers/ConstantsContext";
+import { BusStopsProvider } from "./providers/BusStopsContext";
 import { DonationsProvider } from "./providers/DonationsContext";
 
 const App: FunctionComponent = () => {
@@ -12,13 +14,17 @@ const App: FunctionComponent = () => {
     <ConstantsProvider>
       <CustomThemeProvider>
         <CssBaseline></CssBaseline>
-        <DonationsProvider>
-          <Router>
-            <Layout>
-              <Routes></Routes>
-            </Layout>
-          </Router>
-        </DonationsProvider>
+        <Router>
+          <SnackbarProvider maxSnack={5}>
+            <BusStopsProvider>
+              <DonationsProvider>
+                <Layout>
+                  <Routes></Routes>
+                </Layout>
+              </DonationsProvider>
+            </BusStopsProvider>
+          </SnackbarProvider>
+        </Router>
       </CustomThemeProvider>
     </ConstantsProvider>
   );

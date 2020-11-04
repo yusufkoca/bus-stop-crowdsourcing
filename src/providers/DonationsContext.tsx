@@ -13,14 +13,7 @@ const DonationsContext = React.createContext<DonationsContextType>({
 DonationsContext.displayName = "DonationsContext";
 
 const DonationsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [donations, setDonations] = React.useState<Donation[]>([
-    {
-      amount: 70,
-      busStopId: 1,
-      date: new Date(),
-      donor: { name: "Yusuf" },
-    },
-  ]);
+  const [donations, setDonations] = React.useState<Donation[]>([]);
 
   const addDonation = (donation: Donation) => {
     setDonations([...donations, donation]);
