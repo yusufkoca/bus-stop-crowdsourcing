@@ -7,6 +7,7 @@ import ErrorView from "../../components/ErrorView";
 import ProgressBar from "./ProgressBar";
 import DonationsHistory from "./DonationsHistory";
 import { useConstants } from "../../providers/ConstantsContext";
+import Donate from "./Donate";
 
 const BusStopPage: FunctionComponent = () => {
   let { id } = useParams();
@@ -40,6 +41,7 @@ const BusStopPage: FunctionComponent = () => {
           }
         ></ProgressBar>
         <DonationsHistory busStop={busStop}></DonationsHistory>
+        <Donate></Donate>
       </Container>
     );
   }
