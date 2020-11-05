@@ -102,7 +102,7 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
           label="Card Number"
           variant="outlined"
           onChange={(e) => {
-            setNumber(e.target.value);
+            setNumber(e.target.value.replaceAll("-", ""));
           }}
           onFocus={handleInputFocus}
           InputProps={{
@@ -151,13 +151,13 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
             label="Expiration Date"
             variant="outlined"
             onChange={(e) => {
-              setExpiry(e.target.value);
+              setExpiry(e.target.value.replaceAll("/", ""));
             }}
             onFocus={handleInputFocus}
             InputProps={{
               inputComponent: MaskedTextInput as any,
               inputProps: {
-                mask: [/[1-9]/, /\d/, "/", /\d/, /\d/, /\d/, /\d/],
+                mask: [/[1-9]/, /\d/, "/", /\d/, /\d/],
               },
             }}
           />
