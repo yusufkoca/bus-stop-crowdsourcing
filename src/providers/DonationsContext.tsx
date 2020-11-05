@@ -1,22 +1,43 @@
 import React from "react";
-import { Donation } from "../types/Donation";
+import { Donation, Donor } from "../types/Donation";
+import { useBusStops } from "./BusStopsContext";
 
 type DonationsContextType = {
   donations: Donation[];
-  addDonation: (donation: Donation) => void;
+  addDonation: (
+    busStopId: number,
+    donationAmount: number,
+    donor: Donor
+  ) => void;
 };
 
 const DonationsContext = React.createContext<DonationsContextType>({
   donations: [],
-  addDonation: () => {},
+  addDonation: (busStopId: number, donationAmount: number, donor: Donor) => {
+    console.log("not implemented");
+  },
 });
 DonationsContext.displayName = "DonationsContext";
 
 const DonationsProvider = ({ children }: { children: React.ReactNode }) => {
+  const { addDonationToBusStop } = useBusStops();
   const [donations, setDonations] = React.useState<Donation[]>([]);
 
-  const addDonation = (donation: Donation) => {
-    setDonations([...donations, donation]);
+  const addDonation = (
+    busStopId: number,
+    donationAmount: number,
+    donor: Donor
+  ) => {
+    const result = addDonationToBusStop(busStopId, donationAmount);
+    if (result) {
+      const donation = {
+        amount: donationAmount,
+        busStopId: busStopId,
+        date: new Date(),
+        donor: donor,
+      };
+      setDonations([...donations, donation]);
+    }
   };
 
   return (

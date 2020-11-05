@@ -73,25 +73,31 @@ const stops: BusStop[] = [
   },
 ];
 
-const BusStopServiceMock = {
+class BusStopServiceMock {
+  stops: BusStop[];
+
+  constructor() {
+    this.stops = stops;
+  }
+
   /**
    * returns an array of all stops on success
    * on failure, throws Error
    */
-  getAllStops: function () {
+  getAllStops() {
     this.randomlyFailWith("Unable to read database");
 
     return this.clone(stops);
-  },
+  }
 
   /**
    * returns nothing on success
    * on failure, throws Error
    */
-  addDonation: function (stopId: number, donationAmountInDollars: number) {
+  addDonation(stopId: number, donationAmountInDollars: number) {
     this.randomlyFailWith("Unable to connect to database");
 
-    var stop = stops.find(function (s) {
+    const stop = stops.find(function (s) {
       return s.stopId == stopId;
     });
 
@@ -100,11 +106,11 @@ const BusStopServiceMock = {
     }
 
     stop.donationsRaisedInDollars += donationAmountInDollars;
-  },
+  }
 
   // thanks to http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
-  clone: function (obj: any): any {
-    var copy: any;
+  clone(obj: any): any {
+    let copy: any;
 
     // Handle the 3 simple types, and null or undefined
     if (null == obj || "object" != typeof obj) return obj;
@@ -119,7 +125,7 @@ const BusStopServiceMock = {
     // Handle Array
     if (obj instanceof Array) {
       copy = [];
-      for (var i = 0, len = obj.length; i < len; i++) {
+      for (let i = 0, len = obj.length; i < len; i++) {
         copy[i] = this.clone(obj[i]);
       }
       return copy;
@@ -128,20 +134,22 @@ const BusStopServiceMock = {
     // Handle Object
     if (obj instanceof Object) {
       copy = {};
-      for (var attr in obj) {
+      for (const attr in obj) {
         if (obj.hasOwnProperty(attr)) copy[attr] = this.clone(obj[attr]);
       }
       return copy;
     }
 
     throw new Error("Unable to copy obj! Its type is not supported.");
-  },
+  }
 
   randomlyFailWith(errorMessage: string) {
     if (Math.random() * 100 > 80.0) {
       throw new Error(errorMessage);
     }
-  },
-};
+  }
+}
 
-export default BusStopServiceMock;
+const mockService = new BusStopServiceMock();
+
+export default mockService;

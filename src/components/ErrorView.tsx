@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router-dom";
 import { Typography, Button, ButtonGroup } from "@material-ui/core";
@@ -28,7 +28,7 @@ type ErrorViewProps = {
 
 const ErrorView = ({ errorMessage }: ErrorViewProps) => {
   const classes = useStyles();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className={classes.root}>
       <Typography variant="h4">Something is wrong :(</Typography>

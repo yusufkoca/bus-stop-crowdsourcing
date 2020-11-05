@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect } from "react";
-import { Container, Typography } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import { useBusStops } from "../../providers/BusStopsContext";
 import { useParams } from "react-router-dom";
@@ -10,10 +10,9 @@ import { useConstants } from "../../providers/ConstantsContext";
 import Donate from "./Donate";
 
 const BusStopPage: FunctionComponent = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const { busStops } = useBusStops();
-  const { targetDonationForEach } = useConstants();
-
+  const { targetDonationForEach, targetDonationCurrency } = useConstants();
   const busStop = busStops.find((stop) => stop.stopId.toString() === id);
 
   useEffect(() => {
@@ -22,29 +21,50 @@ const BusStopPage: FunctionComponent = () => {
 
   if (!busStop) {
     return <ErrorView errorMessage="We couldn't find the specified Bus Stop" />;
-  } else {
-    return (
-      <Container maxWidth={"md"}>
-        <Box
-          display="flex"
-          width={"100%"}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography color="inherit" variant={"h4"}>
-            {busStop.name}
-          </Typography>
-        </Box>
-        <ProgressBar
-          progress={
-            (busStop.donationsRaisedInDollars / targetDonationForEach) * 100
-          }
-        ></ProgressBar>
-        <DonationsHistory busStop={busStop}></DonationsHistory>
-        <Donate></Donate>
-      </Container>
-    );
   }
+
+  const calculateProgressSoFar = () => {
+    return Math.min(
+      (busStop.donationsRaisedInDollars / targetDonationForEach) * 100,
+      100
+    );
+  };
+  const remainingDonationsToTarget =
+    targetDonationForEach - busStop.donationsRaisedInDollars;
+
+  return (
+    <Container maxWidth={"md"}>
+      <Box
+        display="flex"
+        width={"100%"}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography color="inherit" variant={"h4"}>
+          {busStop.name}
+        </Typography>
+      </Box>
+      <ProgressBar progress={calculateProgressSoFar()}></ProgressBar>
+      <Typography variant="h5">
+        {busStop.donationsRaisedInDollars +
+          targetDonationCurrency +
+          " donated so far. "}
+        {remainingDonationsToTarget < 0
+          ? "Goal Reached! Thank you all."
+          : remainingDonationsToTarget +
+            targetDonationCurrency +
+            " to reach the goal"}
+      </Typography>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Donate busStop={busStop}></Donate>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <DonationsHistory busStop={busStop}></DonationsHistory>
+        </Grid>
+      </Grid>
+    </Container>
+  );
 };
 
 export default BusStopPage;
