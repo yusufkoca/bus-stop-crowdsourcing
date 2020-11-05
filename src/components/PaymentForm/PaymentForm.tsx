@@ -6,6 +6,7 @@ import MaskedTextInput from "./MaskedTextInput";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useConstants } from "../../providers/ConstantsContext";
 import { Donor } from "../../types/Donation";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +28,7 @@ type PaymentFormProps = {
 const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
   const classes = useStyles();
   const { targetDonationCurrency } = useConstants();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [donorName, setDonorName] = React.useState("");
   const [donorEmail, setDonorEmail] = React.useState("");
@@ -36,7 +38,16 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
   const [focus, setFocus] = React.useState<Focused>("number");
   const [name, setName] = React.useState("");
   const [number, setNumber] = React.useState("");
-  const [isValid, setIsValid] = React.useState(false);
+
+  function checkFormValidity() {
+    // A library like formik should be used here but for simplicity we only check required fields
+    // Also for credit card info there should be a strict validation
+
+    if (donorName && cvc && expiry && focus && name && number) {
+      return true;
+    }
+    return false;
+  }
 
   function isOfTypeFocused(keyInput: string): keyInput is Focused {
     return ["number", "name", "expiry", "cvc"].includes(keyInput);
@@ -85,6 +96,7 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
             setDonationAmount(parseInt(e.target.value, 10));
           }}
           fullWidth
+          required
         />
 
         <Cards
@@ -93,7 +105,6 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
           name={name}
           number={number}
           focused={focus}
-          callback={(type, isValid) => setIsValid(isValid)}
         />
 
         <TextField
@@ -132,6 +143,7 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
             },
           }}
           fullWidth
+          required
         />
         <TextField
           name="name"
@@ -143,6 +155,7 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
           }}
           onFocus={handleInputFocus}
           fullWidth
+          required
         />
         <div style={{ display: "flex" }}>
           <TextField
@@ -160,6 +173,8 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
                 mask: [/[1-9]/, /\d/, "/", /\d/, /\d/],
               },
             }}
+            required
+            style={{ marginLeft: 0 }}
           />
           <TextField
             name="cvc"
@@ -176,19 +191,26 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
                 mask: [/[1-9]/, /\d/, /\d/],
               },
             }}
+            required
+            style={{ marginRight: 0 }}
           />
         </div>
 
         <Button
-          disabled={!isValid}
           variant="contained"
           color="primary"
           onClick={() => {
-            // BANK API call here and if successfull call handlePaymentDone function
-            handlePaymentDone(donationAmount, {
-              name: donorName,
-              email: donorEmail,
-            });
+            if (checkFormValidity()) {
+              // BANK API call here and if successfull call handlePaymentDone function
+              handlePaymentDone(donationAmount, {
+                name: donorName,
+                email: donorEmail,
+              });
+            } else {
+              enqueueSnackbar("Please fill all required fields", {
+                variant: "error",
+              });
+            }
           }}
         >
           Donate

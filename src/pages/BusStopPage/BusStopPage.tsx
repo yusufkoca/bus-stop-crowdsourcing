@@ -39,13 +39,14 @@ const BusStopPage: FunctionComponent = () => {
         width={"100%"}
         alignItems="center"
         justifyContent="center"
+        margin={2}
       >
         <Typography color="inherit" variant={"h4"}>
           {busStop.name}
         </Typography>
       </Box>
       <ProgressBar progress={calculateProgressSoFar()}></ProgressBar>
-      <Typography variant="h5">
+      <Typography variant="h5" align="center" gutterBottom>
         {busStop.donationsRaisedInDollars +
           targetDonationCurrency +
           " donated so far. "}

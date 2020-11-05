@@ -1,14 +1,17 @@
 import React, { ReactElement } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-});
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      margin: theme.spacing(2),
+    },
+  })
+);
 
 export default function LinearWithValueLabel({
   progress,
