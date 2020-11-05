@@ -21,13 +21,17 @@ const BusStopsContext = React.createContext<BusStopsContextType>({
 });
 BusStopsContext.displayName = "BusStopsContext";
 
+export type BusStopsProviderProps = {
+  children?: React.ReactNode;
+  defaultValue?: BusStop[];
+};
+
 const BusStopsProvider = ({
   children,
-}: {
-  children: React.ReactNode;
-}): ReactElement => {
+  defaultValue = [],
+}: BusStopsProviderProps): ReactElement => {
   const { enqueueSnackbar } = useSnackbar();
-  const [busStops, setBusStops] = React.useState<BusStop[]>([]);
+  const [busStops, setBusStops] = React.useState<BusStop[]>(defaultValue);
 
   useEffect(() => {
     getBusStops();

@@ -136,7 +136,7 @@ export default function CollapsibleTable({
             <TableCell>Status</TableCell>
             <TableCell align="right">Current Donations</TableCell>
             <TableCell align="right">Target Donations</TableCell>
-            <TableCell>Donate</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

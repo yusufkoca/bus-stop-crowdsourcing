@@ -25,7 +25,7 @@ export default function CustomAppBar(): ReactElement {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Bus Stop Crowdsourcing
+            Crowdsourcing App
           </Typography>
           <Button
             color="inherit"
