@@ -37,9 +37,15 @@ function Row(props: { row: BusStop }) {
   const busStopDonations = donations.filter(
     (donation) => donation.busStopId === row.stopId
   );
+  const remainingDonationsToTarget =
+    targetDonationForEach - row.donationsRaisedInDollars;
+
   return (
     <React.Fragment>
-      <TableRow className={classes.root}>
+      <TableRow
+        className={classes.root}
+        selected={remainingDonationsToTarget < 0 ? true : false}
+      >
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -53,6 +59,13 @@ function Row(props: { row: BusStop }) {
           {row.stopId}
         </TableCell>
         <TableCell>{row.name}</TableCell>
+        <TableCell>
+          {remainingDonationsToTarget < 0
+            ? "Goal Reached! Thank you all."
+            : remainingDonationsToTarget +
+              targetDonationCurrency +
+              " to reach the goal"}
+        </TableCell>
         <TableCell align="right">
           {row.donationsRaisedInDollars + targetDonationCurrency}
         </TableCell>
@@ -61,7 +74,7 @@ function Row(props: { row: BusStop }) {
         </TableCell>
         <TableCell>
           <Button
-            color="secondary"
+            color={remainingDonationsToTarget < 0 ? "primary" : "secondary"}
             component={Link}
             to={"/bus-stops/" + row.stopId}
             variant="contained"
@@ -120,6 +133,7 @@ export default function CollapsibleTable({
             <TableCell />
             <TableCell>Stop Id</TableCell>
             <TableCell>Stop Name</TableCell>
+            <TableCell>Status</TableCell>
             <TableCell align="right">Current Donations</TableCell>
             <TableCell align="right">Target Donations</TableCell>
             <TableCell>Donate</TableCell>

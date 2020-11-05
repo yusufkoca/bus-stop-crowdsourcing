@@ -19,6 +19,7 @@ const BusStopsPage: FunctionComponent = () => {
         width={"100%"}
         alignItems="center"
         justifyContent="center"
+        margin={2}
       >
         <Typography color="inherit" variant={"h4"}>
           Bus Stops

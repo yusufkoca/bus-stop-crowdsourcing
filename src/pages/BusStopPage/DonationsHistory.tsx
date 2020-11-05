@@ -22,7 +22,9 @@ const DonationsHistory = ({ busStop }: DonationsHistoryProps): ReactElement => {
           <ListItem key={index}>
             <ListItemText
               primary={donation.donor.name}
-              secondary={donation.amount + targetDonationCurrency}
+              secondary={`Donated ${
+                donation.amount + targetDonationCurrency
+              } at ${donation.date.toLocaleString()}`}
             />
           </ListItem>
         ))}
