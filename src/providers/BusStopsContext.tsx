@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { BusStop } from "../types";
 import { useSnackbar } from "notistack";
 import busStopService from "../api/busStopService";
@@ -15,13 +15,17 @@ const BusStopsContext = React.createContext<BusStopsContextType>({
   getBusStops: () => {
     console.log("not implemented");
   },
-  addDonationToBusStop: (busStopId: number, donationAmount: number) => {
+  addDonationToBusStop: () => {
     return false;
   },
 });
 BusStopsContext.displayName = "BusStopsContext";
 
-const BusStopsProvider = ({ children }: { children: React.ReactNode }) => {
+const BusStopsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}): ReactElement => {
   const { enqueueSnackbar } = useSnackbar();
   const [busStops, setBusStops] = React.useState<BusStop[]>([]);
 
@@ -89,7 +93,7 @@ const BusStopsProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const useBusStops = () => {
+const useBusStops = (): BusStopsContextType => {
   const context = React.useContext(BusStopsContext);
   if (context === undefined) {
     throw new Error("useBusStops must be used within a BusStopsProvider");

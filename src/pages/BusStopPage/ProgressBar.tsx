@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
@@ -14,7 +14,7 @@ export default function LinearWithValueLabel({
   progress,
 }: {
   progress: number;
-}) {
+}): ReactElement {
   const classes = useStyles();
 
   return (

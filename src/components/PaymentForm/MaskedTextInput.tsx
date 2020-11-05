@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import MaskedInput from "react-text-mask";
 
 interface MaskedTextInputProps {
@@ -6,7 +6,9 @@ interface MaskedTextInputProps {
   mask: any[];
 }
 
-export default function MaskedTextInput(props: MaskedTextInputProps) {
+export default function MaskedTextInput(
+  props: MaskedTextInputProps
+): ReactElement {
   const { inputRef, mask, ...others } = props;
 
   return (

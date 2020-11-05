@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { ReactElement } from "react";
 import GoogleMapReact from "google-map-react";
 import MapPin from "../../components/MapPin";
 import { BusStop } from "../../types";
@@ -8,7 +8,7 @@ type MapViewProps = {
   busStops: BusStop[];
 };
 
-const MapView = ({ busStops }: MapViewProps) => {
+const MapView = ({ busStops }: MapViewProps): ReactElement => {
   const { targetDonationForEach, targetDonationCurrency } = useConstants();
   const defaultProps: {
     center: { lat: number; lng: number };

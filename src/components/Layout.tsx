@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import AppBar from "./AppBar";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps): ReactElement => {
   return (
     <>
       <AppBar />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Chip from "@material-ui/core/Chip";
 import Tooltip from "@material-ui/core/Tooltip";
 import DoneIcon from "@material-ui/icons/Done";
@@ -7,7 +7,10 @@ import { Link } from "react-router-dom";
 
 const MapPin = ({
   text,
+  // these props are used by map plugin
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   lat,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   lng,
   tooltipText,
   goalReached = false,
@@ -19,7 +22,7 @@ const MapPin = ({
   tooltipText: string;
   goalReached: boolean;
   redirectTo: string;
-}) => (
+}): ReactElement => (
   <Tooltip title={tooltipText}>
     <Link to={redirectTo}>
       <Chip

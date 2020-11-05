@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import ErrorView from "../components/ErrorView";
 
-const NotFoundPage = () => {
+const NotFoundPage = (): ReactElement => {
   return <ErrorView errorMessage={"404 Page not found!"}></ErrorView>;
 };
 

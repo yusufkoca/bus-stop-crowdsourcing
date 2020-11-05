@@ -1,5 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
-import React from "react";
+import React, { ReactElement } from "react";
 import Cards, { Focused } from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import MaskedTextInput from "./MaskedTextInput";
@@ -24,7 +24,7 @@ type PaymentFormProps = {
   handlePaymentDone: (donationAmount: number, donor: Donor) => void;
 };
 
-const PaymentForm = ({ handlePaymentDone }: PaymentFormProps) => {
+const PaymentForm = ({ handlePaymentDone }: PaymentFormProps): ReactElement => {
   const classes = useStyles();
   const { targetDonationCurrency } = useConstants();
 

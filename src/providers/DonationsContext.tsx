@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Donation, Donor } from "../types/Donation";
 import { useBusStops } from "./BusStopsContext";
 
@@ -13,13 +13,17 @@ type DonationsContextType = {
 
 const DonationsContext = React.createContext<DonationsContextType>({
   donations: [],
-  addDonation: (busStopId: number, donationAmount: number, donor: Donor) => {
+  addDonation: () => {
     console.log("not implemented");
   },
 });
 DonationsContext.displayName = "DonationsContext";
 
-const DonationsProvider = ({ children }: { children: React.ReactNode }) => {
+const DonationsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}): ReactElement => {
   const { addDonationToBusStop } = useBusStops();
   const [donations, setDonations] = React.useState<Donation[]>([]);
 
@@ -47,7 +51,7 @@ const DonationsProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const useDonations = () => {
+const useDonations = (): DonationsContextType => {
   const context = React.useContext(DonationsContext);
   if (context === undefined) {
     throw new Error("useDonations must be used within a DonationsProvider");

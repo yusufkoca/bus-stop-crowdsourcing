@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { ReactElement } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router-dom";
 import { Typography, Button, ButtonGroup } from "@material-ui/core";
@@ -26,7 +26,7 @@ type ErrorViewProps = {
   errorMessage?: string;
 };
 
-const ErrorView = ({ errorMessage }: ErrorViewProps) => {
+const ErrorView = ({ errorMessage }: ErrorViewProps): ReactElement => {
   const classes = useStyles();
   const navigate = useNavigate();
   return (

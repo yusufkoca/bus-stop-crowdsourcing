@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import { Typography } from "@material-ui/core";
 import MapView from "./MapView";
 import { useBusStops } from "../../providers/BusStopsContext";
 
-const HomePage = () => {
+const HomePage = (): ReactElement => {
   const { busStops, getBusStops } = useBusStops();
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
@@ -107,7 +107,11 @@ function Row(props: { row: BusStop }) {
   );
 }
 
-export default function CollapsibleTable({ rows }: { rows: BusStop[] }) {
+export default function CollapsibleTable({
+  rows,
+}: {
+  rows: BusStop[];
+}): ReactElement {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Routes, Route } from "react-router-dom";
 import NotFoundPage from "../pages/NotFoundPage";
 import HomePage from "../pages/HomePage/HomePage";
 import BusStopsPage from "../pages/BusStopsPage";
 import BusStopPage from "../pages/BusStopPage";
 
-export default function MainRoutes() {
+const MainRoutes: FunctionComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />}></Route>
@@ -16,4 +16,6 @@ export default function MainRoutes() {
       <Route path="*" element={<NotFoundPage />}></Route>
     </Routes>
   );
-}
+};
+
+export default MainRoutes;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import { BusStop } from "../../types";
 import { useDonations } from "../../providers/DonationsContext";
@@ -8,7 +8,7 @@ type DonationsHistoryProps = {
   busStop: BusStop;
 };
 
-const DonationsHistory = ({ busStop }: DonationsHistoryProps) => {
+const DonationsHistory = ({ busStop }: DonationsHistoryProps): ReactElement => {
   const { donations: allDonations } = useDonations();
   const { targetDonationCurrency } = useConstants();
   const stopsDonations = allDonations.filter(

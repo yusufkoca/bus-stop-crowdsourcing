@@ -1,6 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-const defaultContext = {
+type ConstantsContextType = {
+  targetDonationForEach: number;
+  targetDonationCurrency: string;
+};
+
+const defaultContext: ConstantsContextType = {
   targetDonationForEach: parseInt(
     process.env.REACT_APP_TARGET_DONATION_AMOUNT_FOR_EACH || "700",
     10
@@ -11,8 +16,12 @@ const defaultContext = {
 const ConstantsContext = React.createContext(defaultContext);
 ConstantsContext.displayName = "ConstantsContext";
 
-const ConstantsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [constants, setConstants] = React.useState(defaultContext);
+const ConstantsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}): ReactElement => {
+  const [constants] = React.useState(defaultContext);
 
   return (
     <ConstantsContext.Provider value={constants}>
@@ -21,7 +30,7 @@ const ConstantsProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const useConstants = () => {
+const useConstants = (): ConstantsContextType => {
   const context = React.useContext(ConstantsContext);
   if (context === undefined) {
     throw new Error("useConstants must be used within a ConstantsProvider");
