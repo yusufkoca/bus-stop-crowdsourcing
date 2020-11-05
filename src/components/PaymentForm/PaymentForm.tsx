@@ -2,9 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import React from "react";
 import Cards, { Focused } from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
-import MaskedCreditCardNumberInput from "./MaskedCreditCardNumberInput";
-import MaskedExpiryInput from "./MaskedExpiryInput";
-import MaskedCvcInput from "./MaskedCvcInput";
+import MaskedTextInput from "./MaskedTextInput";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useConstants } from "../../providers/ConstantsContext";
 import { Donor } from "../../types/Donation";
@@ -39,11 +37,6 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps) => {
   const [name, setName] = React.useState("");
   const [number, setNumber] = React.useState("");
   const [isValid, setIsValid] = React.useState(false);
-
-  //TODO try DRY
-  const CreditCardInput: any = MaskedCreditCardNumberInput;
-  const ExpiryInput: any = MaskedExpiryInput;
-  const CvcInput: any = MaskedCvcInput;
 
   function isOfTypeFocused(keyInput: string): keyInput is Focused {
     return ["number", "name", "expiry", "cvc"].includes(keyInput);
@@ -113,7 +106,30 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps) => {
           }}
           onFocus={handleInputFocus}
           InputProps={{
-            inputComponent: CreditCardInput,
+            inputComponent: MaskedTextInput as any,
+            inputProps: {
+              mask: [
+                /[1-9]/,
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                "-",
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+              ],
+            },
           }}
           fullWidth
         />
@@ -139,7 +155,10 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps) => {
             }}
             onFocus={handleInputFocus}
             InputProps={{
-              inputComponent: ExpiryInput,
+              inputComponent: MaskedTextInput as any,
+              inputProps: {
+                mask: [/[1-9]/, /\d/, "/", /\d/, /\d/, /\d/, /\d/],
+              },
             }}
           />
           <TextField
@@ -152,7 +171,10 @@ const PaymentForm = ({ handlePaymentDone }: PaymentFormProps) => {
             }}
             onFocus={handleInputFocus}
             InputProps={{
-              inputComponent: CvcInput,
+              inputComponent: MaskedTextInput as any,
+              inputProps: {
+                mask: [/[1-9]/, /\d/, /\d/],
+              },
             }}
           />
         </div>
