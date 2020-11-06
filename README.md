@@ -1,4 +1,16 @@
-# Getting Started with Create React App
+React App to crowdsource given some bus-stops online. No backend and no real credit card processing or storing, just a simple frontend.
+
+Demo Link -> https://crowsourcing-for-a-real-good-cause.netlify.app/
+
+## JS Stack
+
+- React
+- Typescript
+- Material-UI
+- React Router
+- Jest & testing-library
+
+Note: Google maps api key should be specified in .env file for map widget to run. ( see the .env.example file )
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
